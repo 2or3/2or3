@@ -1,0 +1,57 @@
+.ht1,.ht2,.ht3
+	{
+	margin-top:0px;
+	margin-bottom:10px;
+	line-height:130%;
+	padding-top:3px;
+	padding-left:10px;
+	color:white;
+	background-image:url('img/mark3.gif');
+	background-repeat:no-repeat;
+	background-position:right bottom;
+	font-size: 120%;
+	font-weight:bold;
+	font-family:monospace;
+	clear:both;
+	}
+
+.ht1
+	{
+	border-right:solid 1px #000000;
+	border-bottom:solid 1px #000000;
+	background-color:#006699;
+	width:350px;
+	}
+.ht2
+	{
+	margin-top:10px;
+	border-right:solid 1px #000000;
+	border-bottom:solid 1px #000000;
+	background-color:#339966;
+	width:450px;
+	}
+.ht2 span
+	{
+	font-size:80%;
+	}
+.ht3
+	{
+	clear:both;
+	margin-top:10px;
+	margin-left:10px;
+	width:170px;
+	border-right:solid 1px #000000;
+	border-bottom:solid 1px #000000;
+	background-color:#ff6633;
+	}
+
+.ht4
+	{
+	font-size:110%;
+	font-weight:bold;
+	width:400px;
+	border-bottom:double 3px #ff0000;
+	margin-left:10px;
+	margin-top:1em;
+	margin-bottom:1em;
+	}

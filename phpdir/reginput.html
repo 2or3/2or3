@@ -1,0 +1,98 @@
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<html>
+<head>
+<title>新規登録</title>
+<script type="text/javascript" >
+<!--
+  function inputcheck(){
+    if(document.getElementById("pass").value != "" && document.getElementById("confp").value != "")
+    {
+      if(document.getElementById("pass").value == document.getElementById("confp").value)
+      {
+        document.getElementById("mes").innerHTML = "正しく入力されています";
+      }else{
+        document.getElementById("mes").innerHTML = "パスワードが一致しません";
+        document.getElementById("pass").value = "";
+        document.getElementById("confp").value = "";
+      }
+    }else{
+        document.getElementById("mes").innerHTML = "";
+    }
+  }
+
+  function ck(){
+  id = document.getElementById("ID").value;
+  uname = document.getElementById("uName").value;
+  pass = document.getElementById("pass").value;
+  confp = document.getElementById("confp").value;
+  email = document.getElementById("email").value;
+
+    if(id == "" || uname == "" || pass == "" || confp == "" || email == "")
+    {
+      if(id == "")
+      {
+        alert('IDを入力してください');
+      }
+      if(uname == "")
+      {
+        alert('名前を入力してください');
+      }
+      if(pass == "")
+      {
+        alert('パスワードを入力してください');
+      }
+      if(confp == "")
+      {
+        alert('パスワード確認を入力してください');
+      }
+      if(email == "")
+      {
+        alert('E-mailを入力してください');
+      }
+      return false;
+    }
+    if(id.length > 10 || pass.length > 10 || pass.length < 4)
+    {
+      if(id.length > 10)
+        alert('IDは10字以内で入力してください');
+      if(pass.length > 10)
+        alert('passは10字以内で入力してください');
+      if(pass.length < 4)
+        alert('passは4字以上で入力してください');
+      return false;
+    }
+  return true;
+  }
+-->
+</script>
+</head>
+<body>
+  <form id="form1" method="POST" action="register.php" onsubmit="return ck()" >
+    <h1>新規登録を行います</h1><br>
+    <b>以下のフォームを入力してください</b><br><br>
+    <TABLE>
+      <tr>
+      <th align="right"><b>ID：</b></th>
+      <td><input type="text" id="ID" name="ID" placeholder="例）collark（10字以内の英数）" size="30"/></td>
+      </tr>
+      <tr>
+      <th align="right"><b>名前：</b></th>
+      <td><input type="text" id="uName" name="uName" placeholder="例）○島 ＸＸ雄" size="30"/></td>
+      </tr>
+      <tr>
+      <th align="right"><b>パスワード：</b></th>
+      <td><input type="text" id="pass" name="pass" onChange="inputcheck()" placeholder="例）p@ssw0rd（4〜10字以内の英数）" size="30"/></td>
+      </tr>
+      <tr>
+      <th align="right"><b>パスワード確認：</b></th>
+      <td><input type="text" id="confp" name="confp" onChange="inputcheck()" placeholder="例）p@sse0rd" size="30"/></td>
+      <th align="left"><i><label id="mes" name="mes"></label></i>
+      </tr>
+      <tr>
+      <th align="right"><b>E-mail：</b></th>
+      <td><input type="text" id="email" name="email" placeholder="例）XXXXX@XXX.XX.XX" size="30" /></td>
+      </tr>
+    </TABLE>
+    <input type="submit" value="登録" /><br>
+  </form>
+</body>

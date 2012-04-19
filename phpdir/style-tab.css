@@ -1,0 +1,237 @@
+.tab	{height:26px;}
+.sample ul	{margin:0px;}
+.tab1p p, .tab21p p, .tab22p p, .tab23p p, .tab24p p, .tab25p p, .tab26p p, .tab27p p
+	{margin:10px}
+
+.tab1p	
+	{
+	clear:both;
+	border-top:solid 10px #ff3300;
+	border-bottom:solid 1px #ff3300;
+	border-left:solid 1px #ff3300;
+	border-right:solid 1px #ff3300;
+	}
+.tab21p
+	{
+	clear:both;
+	border-top:solid 10px #ff3300;
+	border-bottom:solid 1px #ff3300;
+	border-left:solid 1px #ff3300;
+	border-right:solid 1px #ff3300;
+	}
+.tab22p
+	{
+	clear:both;
+	border-top:solid 10px #3333ff;
+	border-bottom:solid 1px #3333ff;
+	border-left:solid 1px #3333ff;
+	border-right:solid 1px #3333ff;
+	}
+.tab23p
+	{
+	clear:both;
+	border-top:solid 10px #33cc33;
+	border-bottom:solid 1px #33cc33;
+	border-left:solid 1px #33cc33;
+	border-right:solid 1px #33cc33;
+	}
+.tab24p
+	{
+	clear:both;
+	border-top:solid 10px #ff6600;
+	border-bottom:solid 1px #ff6600;
+	border-left:solid 1px #ff6600;
+	border-right:solid 1px #ff6600;
+	}
+.tab25p
+	{
+	clear:both;
+	border-top:solid 10px #ffff33;
+	border-bottom:solid 1px #ffff33;
+	border-left:solid 1px #ffff33;
+	border-right:solid 1px #ffff33;
+	}
+.tab26p
+	{
+        clear:both;
+        border-top:solid 10px #33ffff;
+        border-bottom:solid 1px #33ffff;
+        border-left:solid 1px #33ffff;
+        border-right:solid 1px #33ffff;
+	}
+.tab27p
+        {
+        clear:both;
+        border-top:solid 10px #ff33ff;
+        border-bottom:solid 1px #ff33ff;
+        border-left:solid 1px #ff33ff;
+        border-right:solid 1px #ff33ff;
+        }
+
+.tabmenu
+	{
+	display:block;
+	width:60px;
+	float:left;
+	margin:0px;
+	}
+
+.tab1on, .tab1off, .tab21on, .tab21off, .tab22on, .tab22off, .tab23on, .tab23off, .tab24on, .tab24off, .tab25on, .tab25off, .tab26on, .tab26off, .tab27on, .tab27off
+	{
+	display:block;
+	width:100px;
+	height:26px;
+	float:left;
+	margin-right:5px;
+	text-align:center;
+	}
+
+.tab1on a:link, .tab1on a:visited, .tab1on a:hover, .tab1off a:link, .tab1off a:visited, .tab1off a:hover
+	{
+	display:block;
+	margin-top:5px;
+	}
+
+.tab1on a:link
+	{
+	color:#ffffff;
+	text-decoration:none;
+	}
+.tab1on a:visited
+	{
+	color:#ffffff;
+	text-decoration:none;
+	}
+.tab1on a:hover
+	{
+	color:#ffffff;
+	text-decoration:none;
+	}
+.tab1off a:link
+	{
+	color:#000000;
+	text-decoration:underline;
+	}
+.tab1off a:visited
+	{
+	color:#000000;
+	text-decoration:underline;
+	}
+.tab1off a:hover
+	{
+	color:#ff3333;
+	text-decoration:underline;
+	}
+
+.tab1on
+	{
+	background-color:#ff3333;
+	}
+.tab1off 
+	{
+	background-color:#ffcccc;
+	}
+
+
+
+
+
+.tab21on a:link,.tab22on a:link,.tab23on a:link,.tab24on a:link,.tab25on a:link,.tab26on a:link,.tab27on a:link
+	{
+	color:#ffffff;
+	text-decoration:none;
+	display:block;
+	margin-top:5px;
+	}
+.tab21on a:visited,.tab22on a:visited,.tab23on a:visited,.tab24on a:visited,.tab25on a:visited,.tab26on a:visited,.tab27on a:visited
+	{
+	color:#ffffff;
+	text-decoration:none;
+	display:block;
+	margin-top:5px;
+	}
+.tab21on a:hover,.tab22on a:hover,.tab23on a:hover,.tab24on a:hover,.tab25on a:hover,.tab26on a:hover,.tab27on a:hover
+	{
+	color:#ffffff;
+	text-decoration:none;
+	display:block;
+	margin-top:5px;
+	}
+
+.tab21off a:link,.tab22off a:link,.tab23off a:link,.tab24off a:link,.tab25off a:link,.tab26off a:link,.tab27off a:link
+	{
+	color:#000000;
+	text-decoration:underline;
+	display:block;
+	margin-top:5px;
+	}
+.tab21off a:visited,.tab22off a:visited,.tab23off a:visited,.tab24off a:visited,.tab25off a:visited,.tab26off a:visited,.tab27off a:visited
+	{
+	color:#000000;
+	text-decoration:underline;
+	display:block;
+	margin-top:5px;
+	}
+.tab21off a:hover,.tab22off a:hover,.tab23off a:hover,.tab24off a:hover,.tab25off a:hover,.tab26off a:hover,.tab27off a:hover
+	{
+	color:#ff3333;
+	text-decoration:underline;
+	display:block;
+	margin-top:5px;
+	}
+.tab21on
+	{
+	background-color:#ff3333;
+	}
+.tab21off 
+	{
+	background-color:#ffcccc;
+	}
+.tab22on
+	{
+	background-color:#3333ff;
+	}
+.tab22off 
+	{
+	background-color:#ccccff;
+	}
+.tab23on
+	{
+	background-color:#33cc33;
+	}
+.tab23off 
+	{
+	background-color:#ccffcc;
+	}
+.tab24on
+	{
+	background-color:#ff6600;
+	}
+.tab24off 
+	{
+	background-color:#ffff99;
+	}
+.tab25on
+	{
+	background-color:#ffff33;
+	}
+.tab25off
+	{
+	background-color:#ffffcc;
+	}
+.tab26on
+	{
+	background-color:#33ffff;
+	}
+.tab26off
+	{
+	background-color:#ccffff;
+	}
+.tab27on
+	{
+	background-color:#ff33ff;
+	}
+.tab27off
+	{
+	background-color:#ffccff;
+	}
