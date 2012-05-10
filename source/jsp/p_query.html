@@ -1,0 +1,34 @@
+<html>
+<head>
+<title>フォーム情報を取得する</title>
+</head>
+<body>
+<h1>フォーム情報を取得する</h1>
+<form method="POST" action="p_query.jsp">
+<table border="0">
+  <tr>
+    <th align="right">名前：</th>
+    <td><input type="text" name="nam" size="15" />
+    </td>
+  </tr>
+  <tr>
+    <th align="right">よく使う言語：</th>
+    <td>
+      <input type="checkbox" name="lang" value="jsp" />
+      Java(JSP/Servlet)
+      <input type="checkbox" name="lang" value="asp" />
+      ASP
+      <input type="checkbox" name="lang" value="php" />
+      PHP
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <input type="submit" value="登録" />
+      <input type="submit" value="削除" />
+    </td>
+  </tr>
+</table>
+</form>
+</body>
+</html>
