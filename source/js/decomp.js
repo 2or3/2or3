@@ -1,32 +1,88 @@
-var init = 2520;
-var max = 11;
+var max = 20;
 var tmp_res = new Array();
-var res = 2520;
-var res1 = 0;
+var init = 2520;
+var response = solve(init);
 
-for(var b=0; b<=max+1; b++)
+console.log(response);
+
+function solve(res)
 {
-    tmp_res[b] = b;
+    for (var j = 0; j < max; j++)
+    {
+        tmp_res[j] = j + 1;
+    }
+
+    while (tmp_res.length !== 0)
+    {
+        res = refinement(res);
+    }
+    return res;
 }
 
-while(tmp_res.length !== 0)
+function refinement(val)
 {
-    res1 = decomp(res1);
-}
-
-function decomp(val){
-    var val1 = 0;
-    var j = 0;
     var tmp = new Array();
-    j = 0;
-    for(var i=0; i <= tmp_res.length; i++){
+    var j = 0;
+
+    for (var i = 0; i < tmp_res.length; i++)
+    {
         if(val % tmp_res[i] !== 0)
         {
-            console.log(tmp[i]);
-            tmp[i] = tmp_res[i];
+            tmp[j] = tmp_res[i];
+            j++;
         }
     }
-    val1 = val * tmp_res[a];
 
-    return res;
+    if (tmp.length !== 0)
+    {
+        if (isPrimNum(val))
+        {
+            val = val * rmp[0];
+        }else{
+            val = decomp(val, tmp[0]);
+        }
+    }
+    tmp_res = new Array();
+    tmp_res = tmp;
+    return val;
+}
+
+function decomp(val1, val2)
+{
+    v1 = val1;
+    v2 = val2;
+    while(v1 !== v2)
+    {
+        if (v1 > v2)
+        {
+            if (v1 % v2 === 0)
+            {
+                return v1;
+            }else{
+                v2 = v2 + val2;
+            }
+        }else{
+            if (v2 % v1 === 0)
+            {
+                return v2;
+            }else{
+                v1 = v1 + val1;
+            }
+        }
+    }
+    return v1;
+}
+
+function isPrimNum(val)
+{
+    var maxNum = val;
+    for (var k = 2; maxNum > k; k++)
+    {
+        if (val % k === 0 && val !== k)
+        {
+            return false;
+        }
+        maxNum = Math.ceil(val / k);
+    }
+    return true;
 }
