@@ -537,3 +537,6 @@ _cache_hosts=(localhost $HOST)
 # include ~/.zsh_localrc if exists
 local localzshrc=~/.zsh_localrc_$(basename $(hostname))
 test -r $localzshrc && source $localzshrc && echo "$(hostname) local settings loaded."
+
+bindkey '^P' history-beginning-search-backward
+bindkey '^N' history-beginning-search-forward
