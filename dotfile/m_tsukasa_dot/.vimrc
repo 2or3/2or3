@@ -238,6 +238,7 @@ NeoBundle "jceb/vim-hier"
 " clang formatting
 NeoBundle 'kana/vim-operator-user'
 NeoBundle 'rhysd/vim-clang-format'
+NeoBundle 'vim-scripts/grep.vim'
 
 filetype plugin indent on     " Required!
 "   Installation check.
@@ -497,3 +498,7 @@ augroup END
 nnoremap <C-h> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
 nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
 nnoremap <C-n> :tab sp<CR> :exe("tjump ".expand('<cword>'))<CR>
+
+" Rgrep
+nnoremap <C-g> :tab sp<CR> :Rgrep <cword><CR><CR><CR>
+nnoremap <C-w><C-g> :tab sp<CR> :Rgrep <cword><CR>
