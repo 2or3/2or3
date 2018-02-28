@@ -27,7 +27,6 @@ filetype indent plugin on
 " Enable syntax highlighting
 syntax on
 
-
 "------------------------------------------------------------
 " Must have options {{{1
 "
@@ -238,7 +237,12 @@ NeoBundle "jceb/vim-hier"
 " clang formatting
 NeoBundle 'kana/vim-operator-user'
 NeoBundle 'rhysd/vim-clang-format'
+" grep
 NeoBundle 'vim-scripts/grep.vim'
+" javascript
+NeoBundle 'moll/vim-node'
+NeoBundle 'myhere/vim-nodejs-complete'
+NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
 
 filetype plugin indent on     " Required!
 "   Installation check.
@@ -389,7 +393,6 @@ set expandtab
 " etc
 set smartcase
 set history=50
-syntax on
 
 " colorschehme
 colorscheme molokai
@@ -502,3 +505,19 @@ nnoremap <C-n> :tab sp<CR> :exe("tjump ".expand('<cword>'))<CR>
 " Rgrep
 nnoremap <C-g> :tab sp<CR> :Rgrep <cword><CR><CR><CR>
 nnoremap <C-w><C-g> :tab sp<CR> :Rgrep <cword><CR>
+
+" nodejs complete
+:setl omnifunc=jscomplete#CompleteJS
+if !exists('g:neocomplcache_omni_functions')
+  let g:neocomplcache_omni_functions = {}
+endif
+let g:neocomplcache_omni_functions.javascript = 'nodejscomplete#CompleteJS'
+let g:node_usejscomplete = 1
+imap <C-f> <C-x><C-o>
+
+" vim node
+autocmd User Node
+  \ if &filetype == "javascript" |
+  \   nmap <buffer> <C-w>f <Plug>NodeVSplitGotoFile |
+  \   nmap <buffer> <C-w><C-f> <Plug>NodeTabGotoFile |
+  \ endif

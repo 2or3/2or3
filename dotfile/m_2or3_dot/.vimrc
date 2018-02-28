@@ -204,6 +204,9 @@ NeoBundle 'kannokanno/previm'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'joker1007/vim-markdown-quote-syntax'
 NeoBundle 'vim-scripts/grep.vim'
+" clang formatting
+NeoBundle 'kana/vim-operator-user'
+NeoBundle 'rhysd/vim-clang-format'
 
 call neobundle#end()
 
@@ -244,3 +247,42 @@ autocmd User Node
 " Rgrep
 nnoremap <C-g> :tab sp<CR> :Rgrep <cword><CR><CR><CR>
 nnoremap <C-w><C-g> :tab sp<CR> :Rgrep <cword><CR>
+
+" clang-format
+map ,x <Plug>(operator-clang-format)
+
+" quickrun
+" 出力先
+" 成功した場合：quickrun 専用の出力バッファ
+" 失敗した場合：quickfix を :copen で開く
+" バッファの開き方：botright 8sp
+"
+" cpp.type にて使用するコンパイラなどを設定する
+" cpp.cmdopt にコマンドラインオプションを設定
+let g:quickrun_config = {
+\   "_" : {
+\       "outputter" : "error",
+\       "outputter/error/success" : "buffer",
+\       "outputter/error/error"   : "quickfix",
+\       "outputter/buffer/split" : ":botright 8sp",
+\       "outputter/quickfix/open_cmd" : "copen",
+\       "runner" : "vimproc",
+\       "runner/vimproc/updatetime" : 500,
+\   },
+\   "cpp" : {
+\       "type" : "cpp/clang++",
+\       "cmdopt" : "-std=c++1y -ID:/home/cpp/boost/boost_1_55_0",
+\   },
+\
+\   "cpp/watchdogs_checker" : {
+\       "type" : "watchdogs_checker/clang++",
+\   },
+\
+\   "watchdogs_checker/g++" : {
+\       "cmdopt" : "-Wall",
+\   },
+\
+\   "watchdogs_checker/clang++" : {
+\       "cmdopt" : "-Wall",
+\   },
+\}
