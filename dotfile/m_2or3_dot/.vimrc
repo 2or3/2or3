@@ -243,3 +243,4 @@ autocmd User Node
 
 " Rgrep
 nnoremap <C-g> :tab sp<CR> :Rgrep <cword><CR><CR><CR>
+nnoremap <C-w><C-g> :tab sp<CR> :Rgrep <cword><CR>
