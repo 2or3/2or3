@@ -203,6 +203,7 @@ NeoBundle 'rcmdnk/vim-markdown'
 NeoBundle 'kannokanno/previm'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'joker1007/vim-markdown-quote-syntax'
+NeoBundle 'vim-scripts/grep.vim'
 
 call neobundle#end()
 
@@ -239,3 +240,6 @@ autocmd User Node
   \   nmap <buffer> <C-w>f <Plug>NodeVSplitGotoFile |
   \   nmap <buffer> <C-w><C-f> <Plug>NodeTabGotoFile |
   \ endif
+
+" Rgrep
+nnoremap <C-g> :tab sp<CR> :Rgrep <cword><CR><CR><CR>
