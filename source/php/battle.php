@@ -5,7 +5,7 @@ class Battle extends GameClass
   function __construct($agent_num) {
     $this->ep_no = 0;
 
-    error_log($n, 3, '/home/tsukasa/php.log');
+    error_log($n, 3, './php.log');
     for ($n=0; $agent_num < $n; $n++) {
       $this->agent[] = self::makeAgent();
     }
