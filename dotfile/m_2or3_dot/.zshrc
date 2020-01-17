@@ -28,6 +28,46 @@
 # fi
 #
 
+# ----------------------------------------
+# prompt
+
+# for Linux (procps 3.2.6)
+function joblist { ps -l|awk '/^..T/&&NR!=1{print $14}'|sed ':a;$!N;$!b a;;s/\n/,/g' }
+function jobnum { ps -l|awk '/^..T/&&NR!=1{print}'|wc -l}
+function ipaddrs { /sbin/ifconfig | awk '/^ *inet addr:/{print $2}' | cut -d: -f2 | grep -v 127.0.0.1 | sed ':a;$!N;$!b a;;s/\n/, /g' }
+
+local C_USERHOST="%{$bg[white]$fg[black]%}"
+local C_PROMPT="%{$fg[white]%}"
+local C_PRE="%{$reset_color%}%{$fg[white]%}"
+local C_CMD="%{$reset_color%}%{$fg[white]%}"
+local C_RIGHT="%{$bg[white]%}%{$fg[black]%}"
+local C_DEFAULT="%{$reset_color%}"
+
+PROMPT=$C_USERHOST"%S[%n@%m] %~ %s$C_PRE "$1"
+"$C_PROMPT"%# "$C_CMD
+# keep a few blank lines at the bottom
+echo -n -e "\n\n\n\033[3A"
+
+# vcs_infoロード
+setopt prompt_subst
+autoload -Uz add-zsh-hook
+autoload -Uz vcs_info
+unsetopt promptcr
+
+# vcsの表示
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
+zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
+zstyle ':vcs_info:*' formats '[%s][%F{green}%b%f]'
+zstyle ':vcs_info:*' actionformats '[%s][%F{green}%b%f(%F{red}%a%f)]'
+
+function _vcs_precmd () {
+  LANG=en_US.UTF-8 vcs_info
+  RPROMPT="%S"$C_RIGHT" %D{%d %a} %* %s"$C_CMD
+  RPROMPT="${vcs_info_msg_0_}"$RPROMPT
+}
+add-zsh-hook precmd _vcs_precmd
+
 # exists?
 function exists {
   if which "$1" 1>/dev/null 2>&1; then return 0; else return 1; fi
@@ -35,12 +75,19 @@ function exists {
 
 # ----------------------------------------
 # import PATH from other shell's rc files
+export PYENV_ROOT="${HOME}/.pyenv"
+
 local paths=':'
 local exports=':'
 export CLKS=/root/www/node.js/www/
-PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/opt/local/bin:/opt/local/sbin
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/opt/local/bin:/opt/local/sbin:/usr/bin/php:/Applications/XAMPP/bin:/opt/td-agent/embedded/bin:/Users/2or3/Library/Python/3.6/bin:$HOME/.nodebrew/current/bin:$HOME/.composer/vendor/bin:${PYENV_ROOT}/bin
+export NODE_PATH=$NODE_PATH:/usr/local/lib/node_modules:/Users/2or3/Documents/membership-api-test/test/lib:/Users/2or3/Documents/membership-api-test/test/e2e/param/
+
+
 eval $paths
 eval $exports
+export XAMPP=/Applications/XAMPP/
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 
 # ----------------------------------------
 # env
@@ -57,59 +104,22 @@ export WORDCHARS='*?_-.[]~&;!#$%^(){}<>'
 
 # ----------------------------------------
 # terminal specific
-case $TERM in;
-  "cygwin")
-    export LANG=ja_JP.SJIS
-    export LC_ALL=C
-    export SHELL=/usr/local/bin/zsh
-    export PATH="/java/jdk1.6.0_03/bin:$PATH"
-    export PATH="/cygdrive/f/app/prog/ghc/bin:$PATH"
-  ;;
+export LANG=ja_JP.UTF-8
+unset LC_ALL
+export LC_MESSAGES=C
+export SHELL=`which zsh`
+export PATH="$HOME/bin:$PATH"
 
-  *)
-    export LANG=ja_JP.UTF-8
-    unset LC_ALL
-    export LC_MESSAGES=C
-    export SHELL=`which zsh`
-    export PATH="$HOME/bin:$PATH"
-    case "$TERM" in
-      xterm*)
-      # determine best terminal
-      if [ -f /usr/share/terminfo/x/xterm-256color ]; then
-        export TERM=xterm-256color
-      elif [ -f /usr/share/terminfo/x/xterm-debian ]; then
-        export TERM=xterm-debian
-      elif [ -f /usr/share/terminfo/x/xterm-color ]; then
-        export TERM=xterm-color
-      else
-        export TERM=xterm
-      fi
-      ;;
-    esac
-  ;;
-esac
+eval "$(pyenv init -)"
 
 # ----------------------------------------
 # aliases
+alias ctags='/usr/local/bin/ctags'
 setopt completealiases
-if [ $TERM = "cygwin" ]; then
-  alias ls='ls --show-control-chars --color=auto -F'
-  alias l='ls --show-control-chars --color=auto -FAl'
-  export LV='-Os -c'
-else
-  case $(uname) in
-  'Linux')
-    alias ls='ls --color=auto -Fh'
-    alias l='ls --color=auto -FAlh'
-    ;;
-  'FreeBSD'|'Darwin')
-    alias ls='ls -GFh'
-    alias l='ls -GFAlh'
-    export LSCOLORS='ExfxcxdxBxegedabagacad'
-    ;;
-  esac
-  export LV='-Ou8 -c'
-fi
+alias ls='ls -GAFh'
+alias l='ls -GFAlh'
+export LSCOLORS='ExfxcxdxBxegedabagacad'
+export LV='-Ou8 -c'
 alias mv='mv -i'
 alias quit='exit'
 alias ':q'='exit'
@@ -145,6 +155,10 @@ fi
 alias T='tail -n 50 -f'
 # short commands
 alias psp='ps -F ax'
+
+# ctags python
+alias ptags='find . -type f -name "*.py" -exec ctags -a {} \;'
+
 # ssh-agent wrapper
 exists lazy-ssh-agent && eval `lazy-ssh-agent setup ssh scp sftp`
 
@@ -161,7 +175,7 @@ function ll {
   l "$@" | $PAGER
 }
 
-function cd {
+function cdd {
   if ! builtin cd 2>/dev/null $@; then
     echo "$fg[yellow]cannot cd: $@$reset_color"
     return
@@ -296,9 +310,9 @@ if [ $((${ZSH_VERSION%.*}>=4.3)) -eq 1 ]; then
     if $LSORACCEPT_TEST -z "$BUFFER"; then
       echo
       if $LSORACCEPT_TEST $(/bin/ls|wc -l) -eq 0; then
-        ls -A
+        # ls -A
       else
-        ls
+        # ls
       fi
       echo
     else
@@ -422,72 +436,7 @@ setopt ignoreeof # C-Dでログアウトしない
 setopt print_eightbit # multibyte characters
 setopt noflowcontrol # no C-S C-Q
 
-# ----------------------------------------
-# insert '(*)' into the head of window title while a command is running
-# in job: "(*) path [name@host]"
-# finish: "path [name@host]"
-case "$TERM" in
-  kterm*|xterm*)
-    function precmd_title { #function chpwd {
-      # called in precmd
-      print -Pn "\e]2;%~ [%n@%m]\a"
-    }
-    function preexec {
-      print -Pn "\e]2;(*)%~ [%n@%m]\a"
-    }
-  ;;
-  *)
-  function precmd_title {
-  }
-  ;;
-esac
 
-# ----------------------------------------
-# prompt
-if [ $TERM = "cygwin" ]; then
-  # for Cygwin (ps 1.11)
-  function joblist { ps|awk '/^S/{print gensub(/^.*\/(.*?)$/,"\\1", "", $9);}'|sed ':a;$!N;$!b a;;s/\n/,/g' }
-  function jobnum { ps|awk '/^S/{print}'|wc -l}
-  function ipaddrs { ipconfig | grep 'IP Address' | sed 's/\. //g;s/.*: //g' | grep -v 127.0.0.1 | sed ':a;$!N;$!b a;;s/\n/, /g' }
-else
-  # for Linux (procps 3.2.6)
-  function joblist { ps -l|awk '/^..T/&&NR!=1{print $14}'|sed ':a;$!N;$!b a;;s/\n/,/g' }
-  function jobnum { ps -l|awk '/^..T/&&NR!=1{print}'|wc -l}
-  function ipaddrs { /sbin/ifconfig | awk '/^ *inet addr:/{print $2}' | cut -d: -f2 | grep -v 127.0.0.1 | sed ':a;$!N;$!b a;;s/\n/, /g' }
-fi
-function precmd {
-  local jn=$(jobnum)
-  if ; then
-    prompt "[$jn] "`joblist`
-  else
-    prompt ''
-  fi
-  precmd_title
-}
-# control sequences for zsh prompt: n lines down, then n lines up
-function prompt {
-  if [ $UID -eq 0 ]; then
-    local C_USERHOST="%{$bg[white]$fg[magenta]%}"
-    local C_PROMPT="%{$fg[magenta]%}"
-  else
-    local C_USERHOST="%{$bg[black]$fg[cyan]%}"
-    local C_PROMPT="%{$fg[cyan]%}"
-  fi
-  local C_PRE="%{$reset_color%}%{$fg[cyan]%}"
-  local C_CMD="%{$reset_color%}%{$fg[white]%}"
-  local C_RIGHT="%{$bg[black]%}%{$fg[white]%}"
-  local C_DEFAULT="%{$reset_color%}"
-  PROMPT=$C_USERHOST"%S[%n@%m] %~ %s$C_PRE "$1"
-"$C_PROMPT"%# "$C_CMD
-  RPROMPT="%S"$C_RIGHT" %D{%d %a} %* %s"$C_CMD
-  # keep a few blank lines at the bottom
-  echo -n -e "\n\n\n\033[3A"
-}
-
-prompt ""
-POSTEDIT=`echotc se`
-setopt prompt_subst # use colors in prompt
-unsetopt promptcr
 
 # ----------------------------------------
 # completion
@@ -540,3 +489,10 @@ test -r $localzshrc && source $localzshrc && echo "$(hostname) local settings lo
 
 bindkey '^P' history-beginning-search-backward
 bindkey '^N' history-beginning-search-forward
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
