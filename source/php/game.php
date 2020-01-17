@@ -5,7 +5,7 @@ abstract class GameClass
 
   protected $agent;
 
-  abstract protected static function makeAgent();
+  abstract protected static function makeAgent($name);
 
   abstract protected function run();
 

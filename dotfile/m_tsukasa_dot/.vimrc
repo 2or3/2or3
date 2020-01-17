@@ -1,4 +1,5 @@
 set enc=utf-8
+colorscheme zenburn 
 set fileencodings=utf8,euc-jp,sjis,iso-2022-jp
 
 " colorscheme zenburn
