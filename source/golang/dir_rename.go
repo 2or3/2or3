@@ -126,7 +126,8 @@ func MakeDir(dirPath string, fileMode os.FileMode) error {
 
 /*
 1. 第一引数のPathに存在するファイルを読み込む
-2. 読み込んだファイルの中身を第二引数のPathにファイルを作成し、書き込む
+2. stringに変換し、該当のTextを置換する
+3. 2で置換した結果のContentsをbyte変換し、第二引数のPathに対してファイルを作成し、書き込む
 */
 func CopyFile(a string, b string, fileMode os.FileMode) error {
     contents, err := ioutil.ReadFile(a)
@@ -134,7 +135,9 @@ func CopyFile(a string, b string, fileMode os.FileMode) error {
         return err
     }
 
-    err = ioutil.WriteFile(b, contents, fileMode)
+    c := string(contents)
+    c = strings.Replace(c, replaceFromChar, replaceToChar, -1)
+    err = ioutil.WriteFile(b, []byte(c), fileMode)
     if err != nil {
         return err
     }
