@@ -1,0 +1,39 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  my-google-tasks-list
+
+  Sample SAM Template for my-google-tasks-list
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  TasklistClearFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: clear/
+      Handler: app.lambda_handler
+      Runtime: ruby2.7
+      Events:
+        TasklistClear:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /tasklist
+            Method: put
+
+Outputs:
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference within SAM
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  TasklistClearApi:
+    Description: "API Gateway endpoint URL for Prod stage for Tasklist Clear function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/tasklist/"
+  TasklistClearFunction:
+    Description: "Tasklist Clear Lambda Function ARN"
+    Value: !GetAtt TasklistClearFunction.Arn
+  TasklistClearFunctionIamRole:
+    Description: "Implicit IAM Role created for Tasklist Clear function"
+    Value: !GetAtt TasklistClearFunctionRole.Arn
