@@ -1,4 +1,4 @@
-# require 'httparty'
+require 'httparty'
 require 'json'
 
 def lambda_handler(event:, context:)

@@ -3,9 +3,9 @@ require 'test/unit'
 require 'mocha/test_unit'
 require 'httparty'
 
-require_relative '../../hello_world/app'
+require_relative '../../clear/app'
 
-class HelloWorldTest < Test::Unit::TestCase
+class TasklistClearTest < Test::Unit::TestCase
   def event
     {
       body: 'eyJ0ZXN0IjoiYm9keSJ9',
