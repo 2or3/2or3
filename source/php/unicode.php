@@ -25,6 +25,10 @@ $str2 = 'タグは #1 #2 です';
 echo "$str2\n";
 var_dump(Extract_Tag_arr($str2)); // -> `1 #2`が得られてしまう
 
+$str3 = 'タグは #1\20001#2 です';
+echo "$str3\n";
+var_dump(Extract_Tag_arr($str3)); // -> `1\\20001#2`が得られてしまう
+
 /**
  * $str からタグ配列を得る
  *
@@ -39,7 +43,7 @@ function Extract_Tag_arr($str)
     preg_match_all('/'.PAT_TAG.'/u', $str, $ms);
     foreach ( $ms[0] as $m ) {
         $tag_arr[] = preg_replace(
-            '/\A[\p{Cc}\p{Cf}\p{Z}]++|[\p{Cc}\p{Cf}\p{Z}]++\z/u', '', $m
+            '/(\A[\p{Cc}\p{Cf}\p{Z}]++|[\p{Cc}\p{Cf}\p{Z}]++\z)(#|＃)/u', '', $m
         );
     }
     return $tag_arr;
